@@ -1,0 +1,253 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #4d5abf;
+  --secondary-color: #de56c9;
+  --background-color: #482951;
+  --accent-color: #4d5abf;
+  --text-color: rgba(255, 255, 255, 0.9);
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--background-color);
+  font-size: 16px;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 20px;
+  margin: 1em 0em 1em 0em;
+  border-radius: 10px;
+  background-color: var(--accent-color);
+  color: var(--text-color);
+  height: auto;
+}
+
+header h1 {
+  display: flex;
+  text-transform: uppercase;
+  text-shadow: 5px 5px #558abb;
+}
+
+header a:hover {
+  color: var(--secondary-color);
+  transition: color 0.5s;
+}
+
+a[target="_blank"] {
+  display: flex;
+  text-align: center;
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  margin: 20px;
+  border-radius: 10px;
+  margin-top: 8em;
+  margin-bottom: 5em;
+}
+
+article {
+  display: flex;
+  flex-direction: column;
+}
+
+article h2 {
+  display: flex;
+  justify-content: center;
+  color: var(--text-color);
+  padding: 20px;
+}
+
+article p {
+  display: flex;
+  justify-content: center;
+  color: var(--text-color);
+  padding: 20px;
+}
+
+article a {
+  color: var(--text-color);
+  padding: 40px;
+  margin-bottom: 30px;
+}
+
+#icons {
+  display: flex;
+  font-size: 30px;
+  justify-content: space-evenly;
+}
+
+aside {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 5px;
+  justify-content: space-around;
+}
+
+aside h3 {
+  display: flex;
+  justify-content: center;
+  color: var(--text-color);
+  text-transform: uppercase;
+  margin: 10px;
+}
+
+aside ul li {
+  display: flex;
+  justify-content: center;
+  color: var(--text-color);
+  padding: 5px;
+  margin: 5px;
+}
+
+a[href="disco.html"] {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  transition: transform 0.3s;
+}
+
+a[href="disco.html"]:hover {
+  transform: scale(0.9);
+}
+
+.image-container img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin: 10px 0px 10px;
+  border-radius: 10px;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  bottom: 0;
+  background-color: var(--accent-color);
+  border-radius: 10px;
+  height: auto;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+footer ul {
+  display: flex;
+  justify-content: space-around;
+  list-style-type: none;
+  text-decoration: none;
+  color: var(--text-color);
+  padding: 15px 0px 0px 0px;
+}
+
+footer a {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+footer a:hover {
+  color: var(--secondary-color);
+  transition: color 0.5s;
+  text-decoration: underline;
+}
+
+footer p {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  font-size: 8px;
+  color: var(--text-color);
+}
+
+75% {
+  font-size: 200%;
+  margin-left: 25%;
+  width: 150%;
+}
+
+p {
+  animation-duration: 3s;
+  animation-name: slidein;
+}
+
+@keyframes slidein {
+  from {
+    margin-left: 100%;
+    width: 200%;
+  }
+
+  75% {
+    font-size: 200%;
+    margin-left: 25%;
+    width: 150%;
+  }
+
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
+
+@media (min-width: 480px) {
+  body {
+    font-size: 18px;
+  }
+
+  header {
+    padding: 15px;
+  }
+
+  main {
+    margin-top: 6em;
+  }
+
+  .image-container img {
+    width: calc(50% - 10px);
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding: 4px;
+  }
+
+  .image-container img:nth-child(2n) {
+    margin-right: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  body {
+    font-size: 20px;
+  }
+
+  .image-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .image-container img {
+    width: calc(33.33% - 10px);
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+  .image-container img:nth-child(3n) {
+    margin-right: 0;
+  }
+}
