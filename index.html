@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script defer src="logic.js"></script>
     <script
       src="https://kit.fontawesome.com/cbeb57016b.js"
       crossorigin="anonymous"
@@ -23,6 +24,8 @@
     </header>
 
     <main>
+      <div id="weatherData"></div>
+      <div id="apiData"></div>
       <article>
         <h2>xusted music</h2>
         <p>your electronic music supplier</p>
@@ -40,14 +43,12 @@
       </article>
       <aside>
         <a href="disco.html">
-          <h3>Discography</h3>
+          <h3>dagens väder i göteborg:</h3>
           <ul>
-            <li>M a z e ›</li>
-            <li>R e c e p t o r ›</li>
-            <li>B u s t e d ›</li>
-            <li>I c e P i c k e r ›</li>
-            <li>T u n n e l V i s i o n s ›</li>
-            <li>A w a k e S l u m b e r ›</li>
+            <div id="weather">
+              <p><strong>Temperatur: </strong><span id="temperature"></span>&deg;</p>
+              <img id="weather-icon" src="" alt="Väderikon">
+            </div>
           </ul>
         </a>
       </aside>
