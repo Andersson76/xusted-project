@@ -1,1 +1,1 @@
-School project in vanilla JavaScript course. Fetching data from API# xusted-project
+School project in vanila JavaScript course. Fetching data from API# xusted-project
