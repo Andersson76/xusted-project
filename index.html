@@ -25,37 +25,40 @@
 
     <main>
       <article>
-        <h2>xusted music</h2>
-        <p>your electronic music supplier</p>
+        <h2>Xusted Weather Chanel</h2>
+        <p>your daily weather supplier</p>
         <div id="icons">
-          <a href="https://open.spotify.com/artist/11lVHxCjt7gVjwwPvPC8mG"
-            ><i class="fa-brands fa-spotify fa-bounce"></i
-          ></a>
-          <a href="https://www.youtube.com/@xustedmusic"
-            ><i class="fa-brands fa-youtube fa-beat-fade"></i
-          ></a>
-          <a href="https://music.apple.com/us/artist/xusted/1491482184"
-            ><i class="fa-brands fa-itunes fa-shake"></i
-          ></a>
+          <i class="fa-regular fa-sun fa-beat-fade"></i>
+          <i class="fa-solid fa-cloud-bolt fa-bounce"></i>
+          <i class="fa-regular fa-snowflake fa-flip"></i>
+          <i class="fa-solid fa-cloud-showers-heavy fa-shake"></i>
+        </div>
+        <div id="form">
+          <form id="weather-form">
+            <label for="location">Plats: </label>
+            <input type="text" id="location" placeholder="Skriv in plats" />
+            <button type="submit">Hämta väder</button>
+          </form>
         </div>
       </article>
       <aside>
         <a href="disco.html">
           <h3>dagens väder i göteborg:</h3>
-            <ul id="weather">
-              <li>
-                <p><strong>Temperatur: </strong>
-                  <span id="temperature"></span>
-                  &deg;
-                </p>
-              </li>
-              <li>
-                <img id="weather-icon" src="" alt="Väderikon">
-              </li>
-              <li>
-                <p>Tryck för mer väderinformation</p>
-              </li>
-            </ul>
+          <ul id="weather">
+            <li>
+              <p>
+                <strong>Temperatur: </strong>
+                <span id="temperature"></span>
+                &deg;
+              </p>
+            </li>
+            <li>
+              <img id="weather-icon" src="" alt="Väderikon" />
+            </li>
+            <li>
+              <p>Tryck för mer väderinformation</p>
+            </li>
+          </ul>
         </a>
       </aside>
     </main>
