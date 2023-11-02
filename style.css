@@ -111,7 +111,7 @@ aside {
   justify-content: space-around;
 }
 
-aside h3 {
+#placeName {
   display: flex;
   text-align: center;
   justify-content: center;
