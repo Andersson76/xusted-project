@@ -4,6 +4,63 @@ const locationInput = document.querySelector("#location");
 const locationName = document.querySelector("#placeName h3");
 const forecastList = document.querySelector("#forecast-list");
 
+/* const clientId = "86cd7c29";
+const clientSecret = "836f9c4729b3f6639bf42e6e2f04bbfd";
+const trackId = "2038657";
+
+const axiosConfig = {
+  headers: {
+    Authorization: `Bearer ${clientId}:${clientSecret}`,
+  },
+};
+
+const audioElement = document.querySelector("#background-audio");
+
+const fetchAndPlayMusic = async () => {
+  try {
+    const response = await axios.get(
+      `https://api.jamendo.com/v3.0/tracks/file?id=${trackId}`,
+      axiosConfig
+    );
+    console.log(response.data);
+
+    const audioUrl = response.data.results[0].audio;
+    console.log("Audio URL:", audioUrl);
+
+    const audioConsentGranted = true;
+
+    if (audioConsentGranted) {
+      audioElement.src = audioUrl;
+      audioElement.play();
+      console.log("Audio playback initiated.");
+    } else {
+      console.log("User denied permission.");
+    }
+  } catch (error) {
+    console.error("Det uppstod ett fel: ", error);
+  }
+}; */
+
+document.addEventListener("DOMContentLoaded", () => {
+  const playAudioButton = document.querySelector("#play-audio-button");
+  if (playAudioButton) {
+    playAudioButton.addEventListener("click", requestAudioPermission);
+  }
+});
+
+const requestAudioPermission = () => {
+  const permissionGranted = confirm("Do you want to play background audio?");
+  if (permissionGranted) {
+    playBackgroundAudio();
+  }
+};
+
+const playBackgroundAudio = () => {
+  const audio = document.querySelector("#background-audio");
+  audio.src = "chillDub.mp3";
+  audio.play();
+};
+
 weatherForm.addEventListener("submit", (event) => {
   event.preventDefault();
   const location = locationInput.value;
