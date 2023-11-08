@@ -8,70 +8,68 @@ document.addEventListener("DOMContentLoaded", () => {
   const playAudioButton = document.querySelector("#play-audio-button");
   const audioElement = document.querySelector("#background-audio");
 
-  playAudioButton.addEventListener("click", () => {
+  playAudioButton.addEventListener("click", async () => {
     if (audioElement.paused) {
-      audioElement
-        .play()
-        .then(() => {
-          playAudioButton.textContent = "Ljud spelas";
-        })
-        .catch((error) => {
-          console.error("An error occurred while trying to play audio:", error);
-        });
+      try {
+        await audioElement.play();
+        playAudioButton.textContent = "Ljud spelas";
+      } catch (error) {
+        console.error("An error occurred while trying to play audio:", error);
+      }
     } else {
       audioElement.pause();
       audioElement.currentTime = 0;
-      playAudioButton.textContent = "Spela bakgrundsljud"
+      playAudioButton.textContent = "Spela bakgrundsljud";
     }
   });
 });
 
-weatherForm.addEventListener("submit", (event) => {
+weatherForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const location = locationInput.value;
-  fetch(
-    `https://weatherapi-com.p.rapidapi.com/forecast.json?q=${location}&days=7`,
-    {
-      method: "GET",
-      headers: {
-        "X-RapidAPI-Key": apiKey,
-        "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com",
-      },
-    }
-  )
-    .then((response) => response.json())
-    .then((data) => {
-      const temperature = data.current.temp_c;
-      const iconUrl = data.current.condition.icon;
-      const forecastDays = data.forecast.forecastday;
+  try {
+    const response = await fetch(
+      `https://weatherapi-com.p.rapidapi.com/forecast.json?q=${location}&days=7`,
+      {
+        method: "GET",
+        headers: {
+          "X-RapidAPI-Key": apiKey,
+          "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com",
+        },
+      }
+    );
+    const data = await response.json();
 
-      const temperatureElement = document.querySelector("#temperature");
-      const iconElement = document.querySelector("#weather-icon");
+    const temperature = data.current.temp_c;
+    const iconUrl = data.current.condition.icon;
+    const forecastDays = data.forecast.forecastday;
 
-      temperatureElement.textContent = temperature;
-      iconElement.src = iconUrl;
-      locationName.textContent = location;
+    const temperatureElement = document.querySelector("#temperature");
+    const iconElement = document.querySelector("#weather-icon");
 
-      forecastList.innerHTML = "";
+    temperatureElement.textContent = temperature;
+    iconElement.src = iconUrl;
+    locationName.textContent = location;
 
-      forecastDays.forEach((day) => {
-        const date = day.date;
-        const maxTemp = day.day.maxtemp_c;
-        const minTemp = day.day.mintemp_c;
-        const condition = day.day.condition.text;
-        const iconUrl = day.day.condition.icon;
+    forecastList.innerHTML = "";
 
-        const listItem = document.createElement("li");
-        listItem.innerHTML = `
-          <img src="${iconUrl}"><strong>${date}:</strong> Max temp: ${maxTemp}°C, Min temp: ${minTemp}°C, ${condition}
+    forecastDays.forEach((day) => {
+      const date = day.date;
+      const maxTemp = day.day.maxtemp_c;
+      const minTemp = day.day.mintemp_c;
+      const condition = day.day.condition.text;
+      const iconUrl = day.day.condition.icon;
+
+      const listItem = document.createElement("li");
+      listItem.innerHTML = `
+          <img src="${iconUrl}"><br>${date}<br> Max: ${maxTemp}°C Min: ${minTemp}°C <br>${condition}
         `;
 
-        forecastList.appendChild(listItem);
-      });
-
-      console.log(data);
-    })
-    .catch((error) => {
-      console.error("Det uppstod ett fel:", error);
+      forecastList.appendChild(listItem);
     });
+
+    console.log(data);
+  } catch (error) {
+    console.error("Det uppstod ett fel:", error);
+  }
 });
