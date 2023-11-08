@@ -95,6 +95,11 @@ article p {
   width: 15%;
   padding: 2px;
 }
+@media (max-width: 768px) {
+  #play-audio-button {
+    width: 50%;
+  }
+}
 
 #weather-form {
   display: flex;
@@ -116,6 +121,7 @@ article a {
   justify-content: space-evenly;
   color: var(--text-color);
   margin: 50px;
+  gap: 40px;
 }
 
 aside {
@@ -140,7 +146,7 @@ aside ul li {
   display: flex;
   justify-content: center;
   color: var(--text-color);
-  padding: 5px;
+  padding: 15px;
   margin: 5px;
 }
 
