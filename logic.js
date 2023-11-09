@@ -16,9 +16,6 @@ const fetchCryptoData = async () => {
           page: 1,
           order: "market_cap_desc",
         },
-        headers: {
-          "X-Requested-With": "XMLHttpRequest",
-        },
       }
     );
     const cryptoData = response.data;
@@ -28,6 +25,7 @@ const fetchCryptoData = async () => {
     console.error("Kunde inte hämta kryptodata:", error);
   }
 };
+
 // Rendera stapeldiagram med data från CoinGecko API
 const renderCryptoChart = async () => {
   const cryptoData = await fetchCryptoData();
