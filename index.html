@@ -9,14 +9,13 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <link rel="stylesheet" href="style.css" />
-    <title>
-      Xusted Music - Electronic Music Provider, Electroc Music download, Buy
-      Electronic Music, Stream Electronic Music
-    </title>
+    <title>Weather Station - your local weather provider</title>
     <meta
       name="description"
-      content="Xusted Music - Here you can listen to Xusteds latest music along with downloading possibilities and as well find links to your favourite streaming service. You can also contact the musician direct on this website."
+      content="Weather Station - your local weather provider where you can see your local weather while listening to lounge background music. Also see cities of Sweden with population."
     />
   </head>
   <body>
@@ -33,6 +32,7 @@
       <article>
         <h2>The Weather Chanel</h2>
         <p>your daily weather supplier</p>
+        <canvas id="cryptoChart" width="400" height="200"></canvas>
         <div id="icons">
           <i class="fa-regular fa-sun fa-beat-fade"></i>
           <i class="fa-solid fa-cloud-bolt fa-bounce"></i>
@@ -66,7 +66,7 @@
             </p>
           </li>
           <li>
-            <img id="weather-icon" src="" alt="Väderikon" />
+            <img id="weather-icon" src="" alt="" />
           </li>
         </ul>
       </aside>
