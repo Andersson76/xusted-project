@@ -4,6 +4,64 @@ const locationInput = document.querySelector("#location");
 const locationName = document.querySelector("#placeName h3");
 const forecastList = document.querySelector("#forecast-list");
 
+// Hämta de 5 dyraste kryptokurserna i USD från CoinGecko API med async/await
+const fetchCryptoData = async () => {
+  try {
+    const response = await axios.get(
+      "https://api.coingecko.com/api/v3/coins/markets",
+      {
+        params: {
+          vs_currency: "usd",
+          per_page: 5,
+          page: 1,
+          order: "market_cap_desc",
+        },
+        headers: {
+          "X-Requested-With": "XMLHttpRequest",
+        },
+      }
+    );
+    const cryptoData = response.data;
+    console.log(cryptoData);
+    return cryptoData;
+  } catch (error) {
+    console.error("Kunde inte hämta kryptodata:", error);
+  }
+};
+// Rendera stapeldiagram med data från CoinGecko API
+const renderCryptoChart = async () => {
+  const cryptoData = await fetchCryptoData();
+
+  const labels = cryptoData.map((item) => item.name);
+  const values = cryptoData.map((item) => item.current_price);
+
+  const ctx = document.querySelector("#cryptoChart").getContext("2d");
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "Värde i USD",
+          data: values,
+          backgroundColor: "rgba(75, 192, 192, 0.3)",
+          borderColor: "rgba(75, 192, 192, 1)",
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+};
+
+renderCryptoChart();
+
 document.addEventListener("DOMContentLoaded", () => {
   const playAudioButton = document.querySelector("#play-audio-button");
   const audioElement = document.querySelector("#background-audio");
@@ -14,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
         await audioElement.play();
         playAudioButton.textContent = "Ljud spelas";
       } catch (error) {
-        console.error("An error occurred while trying to play audio:", error);
+        console.error("Ett fel inträffade vid försök att spela ljudet:", error);
       }
     } else {
       audioElement.pause();
