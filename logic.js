@@ -4,80 +4,81 @@ const locationInput = document.querySelector("#location");
 const locationName = document.querySelector("#placeName h3");
 const forecastList = document.querySelector("#forecast-list");
 
-// Hämta de 5 dyraste kryptokurserna i USD från CoinGecko API med async/await
-const fetchCryptoData = async () => {
-  try {
-    const response = await axios.get(
-      "https://api.coingecko.com/api/v3/coins/markets",
-      {
-        params: {
-          vs_currency: "usd",
-          per_page: 5,
-          page: 1,
-          order: "market_cap_desc",
-        },
-      }
-    );
-    const cryptoData = response.data;
-    console.log(cryptoData);
-    return cryptoData;
-  } catch (error) {
-    console.error("Kunde inte hämta kryptodata:", error);
-  }
-};
-
-// Rendera stapeldiagram med data från CoinGecko API
-const renderCryptoChart = async () => {
-  const cryptoData = await fetchCryptoData();
-
-  const labels = cryptoData.map((item) => item.name);
-  const values = cryptoData.map((item) => item.current_price);
-
-  const ctx = document.querySelector("#cryptoChart").getContext("2d");
-  new Chart(ctx, {
-    type: "bar",
-    data: {
-      labels: labels,
-      datasets: [
+document.addEventListener("DOMContentLoaded", async () => {
+  console.log("DOM fully loaded");
+  // Hämta de 5 dyraste kryptokurserna i USD från CoinGecko API med async/await
+  const fetchCryptoData = async () => {
+    try {
+      const response = await axios.get(
+        "https://api.coingecko.com/api/v3/coins/markets",
         {
-          label: "Värde i USD",
-          data: values,
-          backgroundColor: "rgba(75, 192, 192, 0.3)",
-          borderColor: "rgba(75, 192, 192, 1)",
-          borderWidth: 1,
-        },
-      ],
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true,
+          params: {
+            vs_currency: "usd",
+            per_page: 5,
+            page: 1,
+            order: "market_cap_desc",
+          },
+        }
+      );
+      const cryptoData = response.data;
+      console.log(cryptoData);
+      return cryptoData;
+    } catch (error) {
+      console.error("Kunde inte hämta kryptodata:", error);
+    }
+  };
+
+  // Rendera stapeldiagram med data från CoinGecko API
+  const renderCryptoChart = async () => {
+    const cryptoData = await fetchCryptoData();
+
+    const labels = cryptoData.map((item) => item.name);
+    const values = cryptoData.map((item) => item.current_price);
+
+    const ctx = document.querySelector("#cryptoChart").getContext("2d");
+    new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: "Värde i USD",
+            data: values,
+            backgroundColor: "rgba(75, 192, 192, 0.3)",
+            borderColor: "rgba(192, 192, 192, 1)",
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
         },
       },
-    },
-  });
-};
+    });
+  };
 
-renderCryptoChart();
+  renderCryptoChart();
+});
 
-document.addEventListener("DOMContentLoaded", () => {
-  const playAudioButton = document.querySelector("#play-audio-button");
-  const audioElement = document.querySelector("#background-audio");
+const playAudioButton = document.querySelector("#play-audio-button");
+const audioElement = document.querySelector("#background-audio");
 
-  playAudioButton.addEventListener("click", async () => {
-    if (audioElement.paused) {
-      try {
-        await audioElement.play();
-        playAudioButton.textContent = "Ljud spelas";
-      } catch (error) {
-        console.error("Ett fel inträffade vid försök att spela ljudet:", error);
-      }
-    } else {
-      audioElement.pause();
-      audioElement.currentTime = 0;
-      playAudioButton.textContent = "Spela bakgrundsljud";
+playAudioButton.addEventListener("click", async () => {
+  if (audioElement.paused) {
+    try {
+      await audioElement.play();
+      playAudioButton.textContent = "Ljud spelas";
+    } catch (error) {
+      console.error("Ett fel inträffade vid försök att spela ljudet:", error);
     }
-  });
+  } else {
+    audioElement.pause();
+    audioElement.currentTime = 0;
+    playAudioButton.textContent = "Spela bakgrundsljud";
+  }
 });
 
 weatherForm.addEventListener("submit", async (event) => {
@@ -129,3 +130,42 @@ weatherForm.addEventListener("submit", async (event) => {
     console.error("Det uppstod ett fel:", error);
   }
 });
+// Cities
+const cityForm = document.querySelector("#cityForm");
+const cityNameInput = document.querySelector("#cityName");
+const cityPopulationInput = document.querySelector("#cityPopulation");
+const cityList = document.querySelector("#cityList");
+
+const apiUrl = "https://avancera.app/cities/";
+
+const getCities = async () => {
+  console.log("Fetching cities...");
+  try {
+    const response = await axios.get(apiUrl);
+    console.log("Cities fetched successfully:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching cities:", error);
+    return [];
+  }
+};
+
+const renderCities = async (cities) => {
+  console.log("Rendering cities...");
+  try {
+    cityList.innerHTML = "";
+
+    cities.forEach((city) => {
+      const listItem = document.createElement("li");
+      listItem.textContent = `${city.name} - Population: ${city.population}`;
+      cityList.appendChild(listItem);
+    });
+  } catch (error) {
+    console.error("Error rendering citites:", error.message);
+  }
+};
+const displayCities = async () => {
+  const cities = await getCities();
+  renderCities(cities);
+};
+displayCities();
