@@ -7,77 +7,40 @@
       src="https://kit.fontawesome.com/cbeb57016b.js"
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="style.css" />
-    <script src="index.js"></script>
+    <script src="logic.js"></script>
     <title>
-      Xusted Music - Electronic Music Provider, Electroc Music download, Buy
-      Electronic Music, Stream Electronic Music
+      Weather Station - Crypto currency - Swedish cities - Background music
     </title>
     <meta
       name="description"
-      content="Xusted Music - Here you can see Xusteds latest music albums cover art with a description and see the year of production. You will also find downloading possibilities and links to your favourite streaming service. You can also contact the musician direct on this website."
+      content="Weather Station - your local weather provider where you can see your local weather while listening to lounge background music. You can also find the latest update about the most expensive crypto currency here. Also see cities of Sweden with population can be found here."
     />
   </head>
   <body>
     <header>
-      <a href="https://xusted.se/" target="_blank">
-        <h1>xusted</h1>
+      <a href="index.html" target="_blank">
+        <h1>celcius</h1>
       </a>
     </header>
     <main>
       <article>
-        <h2>Discography</h2>
-        <p>your electronic music supplier</p>
+        <h2>Crypto & Cities</h2>
+        <p>your crypto and cities supplier</p>
       </article>
 
       <aside>
-        <a href="https://www.youtube.com/@xustedmusic">
-          <div class="image-container">
-            <source srcset="album-art/maze.webp 1x, album-art/maze2.webp 2x, album-art/maze3.webp 3x" />
-            <img src="album-art/maze.webp" alt="Maze from Xusted music" />
-            <source srcset="album-art/tyooyt.webp 1x, album-art/tyooyt2.webp 2x, album-art/tyooyt3.webp 3x" />
-            <img src="album-art/tyooyt.webp" alt="Tyo Oyt from Xusted music" />
-            <source
-              srcset="album-art/IcePicker.webp 1x, album-art/IcePicker2.webp 2x, album-art/IcePicker3.webp 3x"
-            />
-            <img src="album-art/IcePicker.webp" alt="Ice picker from Xusted music" />
-            <source
-              srcset="
-                album-art/TunnelVisions.webp  1x,
-                album-art/TunnelVisions2.webp 2x,
-                album-art/TunnelVisions3.webp 3x
-              "
-            />
-            <img
-              src="album-art/TunnelVisions.webp"
-              alt="Tunnel visions from Xusted music"
-            />
-            <source
-              srcset="
-                album-art/AwakeSlumber.webp  1x,
-                album-art/AwakeSlumber2.webp 2x,
-                album-art/AwakeSlumber3.webp 3x
-              "
-            />
-            <img
-              src="album-art/AwakeSlumber.webp"
-              alt="Awake Slumber from Xusted music"
-            />
-            <source
-              srcset="album-art/receptor.webp 1x, album-art/receptor2.webp 2x, album-art/receptor3.webp 3x"
-            />
-            <img src="album-art/receptor.webp" alt="Receptor from Xusted music" />
-            <source srcset="album-art/busted.webp 1x, album-art/busted2.webp 2x, album-art/busted3.webp 3x" />
-            <img src="album-art/busted.webp" alt="Busted from Xusted music" />
-          </div>
-        </a>
+        <canvas id="cryptoChart" width="400" height="200"></canvas>
       </aside>
+      <h1>Cities Management</h1>
+      <ul id="cityList"></ul>
     </main>
-
     <footer>
       <ul>
         <li><a href="index.html">Main Page</a></li>
-        <li><a href="disco.html">Discography</a></li>
+        <li><a href="disco.html">Cities & Currency</a></li>
       </ul>
       <p>&copy; 2023 Martin Andersson</p>
     </footer>
