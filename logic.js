@@ -4,65 +4,6 @@ const locationInput = document.querySelector("#location");
 const locationName = document.querySelector("#placeName h3");
 const forecastList = document.querySelector("#forecast-list");
 
-document.addEventListener("DOMContentLoaded", async () => {
-  console.log("DOM fully loaded");
-  // Hämta de 5 dyraste kryptokurserna i USD från CoinGecko API med async/await
-  const fetchCryptoData = async () => {
-    try {
-      const response = await axios.get(
-        "https://api.coingecko.com/api/v3/coins/markets",
-        {
-          params: {
-            vs_currency: "usd",
-            per_page: 5,
-            page: 1,
-            order: "market_cap_desc",
-          },
-        }
-      );
-      const cryptoData = response.data;
-      console.log(cryptoData);
-      return cryptoData;
-    } catch (error) {
-      console.error("Kunde inte hämta kryptodata:", error);
-    }
-  };
-
-  // Rendera stapeldiagram med data från CoinGecko API
-  const renderCryptoChart = async () => {
-    const cryptoData = await fetchCryptoData();
-
-    const labels = cryptoData.map((item) => item.name);
-    const values = cryptoData.map((item) => item.current_price);
-
-    const ctx = document.querySelector("#cryptoChart").getContext("2d");
-    new Chart(ctx, {
-      type: "bar",
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            label: "Värde i USD",
-            data: values,
-            backgroundColor: "rgba(75, 192, 192, 0.3)",
-            borderColor: "rgba(192, 192, 192, 1)",
-            borderWidth: 1,
-          },
-        ],
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-          },
-        },
-      },
-    });
-  };
-
-  renderCryptoChart();
-});
-
 const playAudioButton = document.querySelector("#play-audio-button");
 const audioElement = document.querySelector("#background-audio");
 
@@ -85,7 +26,7 @@ weatherForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const location = locationInput.value;
   try {
-    const response = await fetch(
+    const response = await axios.get(
       `https://weatherapi-com.p.rapidapi.com/forecast.json?q=${location}&days=7`,
       {
         method: "GET",
@@ -95,7 +36,7 @@ weatherForm.addEventListener("submit", async (event) => {
         },
       }
     );
-    const data = await response.json();
+    const data = await response.data();
 
     const temperature = data.current.temp_c;
     const iconUrl = data.current.condition.icon;
@@ -121,10 +62,8 @@ weatherForm.addEventListener("submit", async (event) => {
       listItem.innerHTML = `
           <img src="${iconUrl}"><br>${date}<br> Max: ${maxTemp}°C Min: ${minTemp}°C <br>${condition}
         `;
-
       forecastList.appendChild(listItem);
     });
-
     console.log(data);
   } catch (error) {
     console.error("Det uppstod ett fel:", error);
