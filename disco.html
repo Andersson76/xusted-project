@@ -12,11 +12,11 @@
     <link rel="stylesheet" href="style.css" />
     <script src="second.js"></script>
     <title>
-      Weather Station - Crypto currency - Swedish cities - Background music
+      Weather Station - Crypto currency - Cities Management - Chill background music
     </title>
     <meta
       name="description"
-      content="Weather Station - your local weather provider where you can see your local weather while listening to lounge background music. You can also find the latest update about the most expensive crypto currency here. Also see cities of Sweden with population can be found here."
+      content="Weather Station - your local weather provider where you can see your local weather while listening to chill background music. You will also be update about the 5 most expensive crypto currencies. Also the Cities Management service is found here."
     />
   </head>
   <body>
@@ -30,21 +30,22 @@
         <h2>Crypto & Cities</h2>
         <p>your crypto and cities supplier</p>
       </article>
-
+      <button type="button" id="fetchButton">Show crypto diagram</button>
       <aside>
         <canvas id="cryptoChart" width="400" height="200"></canvas>
       </aside>
-      <h1>Cities Management</h1>
-      <form id="cityForm">
-        <label for="cityName">City Name:</label>
-        <input type="text" id="cityName" required />
-
-        <label for="cityPopulation">Population:</label>
-        <input type="number" id="cityPopulation" required />
-
-        <button type="submit">Save</button>
-      </form>
-      <ul id="cityList"></ul>
+      <div id="cities">
+        <h1>Cities Management</h1>
+        <form id="cityForm">
+          <label for="cityName">Add a new City name:</label>
+          <input type="text" id="cityName" required />
+          <label for="cityPopulation">with a new Population:</label>
+          <input type="number" id="cityPopulation" required />
+          <button type="submit">Save</button>
+        </form>
+        <button type="button" id="updateButton">Update</button>
+        <ul id="cityList"></ul>
+      </div>
     </main>
     <footer>
       <ul>
