@@ -102,10 +102,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const deleteForm = document.querySelector("#deleteForm");
     const cityNameInput = document.querySelector("#cityName");
     const cityPopulationInput = document.querySelector("#cityPopulation");
-    const updateCityNameInput = document.querySelector("#updateCityName");
-    const updateCityPopulationInput = document.querySelector(
-      "#updateCityPopulation"
-    );
     const deleteCityNameInput = document.querySelector("#deleteCityName");
     const cityList = document.querySelector("#cityList");
 
@@ -142,7 +138,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         cityList.appendChild(listItem);
       });
     };
-
+    // Funktion för att spara
     const saveCity = async (event) => {
       event.preventDefault();
 
@@ -165,6 +161,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.log("Response data:", error.response.data);
       }
     };
+    // Funktion för att uppdatera en stad
     const updateCity = async (updatedCity) => {
       try {
         const response = await axios.put(
@@ -186,22 +183,37 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.error("Error updating city:", error.response.data);
       }
     };
-    // Eventlistener för att uppdatera stad
+    // Event listener för att uppdatera stad
     const updateButton = document.querySelector("#updateButton");
     updateButton.addEventListener("click", async () => {
-      const cityIdToUpdate = prompt("Skriv stads ID att uppdatera:");
-      if (cityIdToUpdate) {
-        const updatedCityName = prompt("Skriv uppdaterat stadsnamn");
-        const updatedCityPopulation = prompt(
-          "Skriv uppdaterad befolkningsantal:"
-        );
+      const updateCityIdInput = document.querySelector("#updateCityId");
+      const updateCityNameInput = document.querySelector("#updateCityName");
+      const updateCityPopulationInput = document.querySelector(
+        "#updateCityPopulation"
+      );
+      const cityIdToUpdate = updateCityIdInput.value.trim();
+      const updatedCityName = updateCityNameInput.value.trim();
+      const updatedCityPopulation = parseInt(
+        updateCityPopulationInput.value.trim(),
+        10
+      );
+      // Validera inputs
+      if (!cityIdToUpdate || !updatedCityName || isNaN(updatedCityPopulation)) {
+        console.error("Invalid input. Please provide valid values.");
+        return;
+      }
+      // Fråga om konfirmation
+      const confirmation = confirm(
+        `Are you sure you want to update City ID ${cityIdToUpdate}?`
+      );
+      if (confirmation) {
         const updatedCity = {
           id: cityIdToUpdate,
           name: updatedCityName,
-          population: parseInt(updatedCityPopulation, 10),
+          population: updatedCityPopulation,
         };
 
-        updateCity(updatedCity);
+        await updateCity(updatedCity);
       }
     });
 
