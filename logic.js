@@ -4,28 +4,27 @@ document.addEventListener("DOMContentLoaded", async () => {
   const locationInput = document.querySelector("#location");
   const locationName = document.querySelector("#placeName h3");
   const forecastList = document.querySelector("#forecast-list");
-
   const playAudioButton = document.querySelector("#play-audio-button");
   const audioElement = document.querySelector("#background-audio");
 
-  playAudioButton.addEventListener("click", async () => {
+  // Funktion för att hantera audio play/paus
+  const toggleAudio = async () => {
     if (audioElement.paused) {
       try {
         await audioElement.play();
-        playAudioButton.textContent = "Ljud spelas";
+        playAudioButton.textContent = "Audio is On";
       } catch (error) {
-        console.error("Ett fel inträffade vid försök att spela ljudet:", error);
+        console.error("Error playing audio:", error);
       }
     } else {
       audioElement.pause();
       audioElement.currentTime = 0;
-      playAudioButton.textContent = "Spela bakgrundsljud";
+      playAudioButton.textContent = "Play Audio";
     }
-  });
+  };
 
-  weatherForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const location = locationInput.value;
+  // Funktion för att söka väder efter plats
+  const searchWeather = async (location) => {
     try {
       const response = await axios.get(
         `https://weatherapi-com.p.rapidapi.com/forecast.json?q=${location}&days=7`,
@@ -65,9 +64,38 @@ document.addEventListener("DOMContentLoaded", async () => {
         `;
         forecastList.appendChild(listItem);
       });
+
+      //Spara senast sökta platsen i localStorage
+      localStorage.setItem("lastSearchedLocation", location);
       console.log(data);
     } catch (error) {
-      console.error("Det uppstod ett fel:", error);
+      console.error("Error fetching weather data:", error);
+      // Felmedelande till användaren
+      alert("An error occurred while fetching weather data. Please try again.");
+    }
+  };
+
+  //Hämta senast sökta platsen från localstorage
+  const lastSearchedLocation = localStorage.getItem("lastSearchedLocation");
+  if (lastSearchedLocation) {
+    locationInput.value = lastSearchedLocation;
+    searchWeather(lastSearchedLocation);
+  }
+
+  // Event listener för audio knappen
+  playAudioButton.addEventListener("click", toggleAudio);
+
+  // Event listener för väder formulär
+  weatherForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const location = locationInput.value.trim();
+
+    if (location) {
+      // Kallar på searchWeather funktionen med angiven plats
+      searchWeather(location);
+    } else {
+      // Alert om ingen plats angivits vid sökningen
+      alert("Please enter a location to search for weather.");
     }
   });
 });
